@@ -185,16 +185,20 @@ void consultarRepuesto(Repuesto repuestos[], int count) {
 }
 
 void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount, Repuesto repuestos[], int repuestoCount) {
+    // Guardar Vehiculos
     ofstream vehiculosFile(VEHICULOS_FILE);
+    vehiculosFile << "modelo,marca,placa,color,year,kilometraje,rentado,precio_renta,ced_cliente,fecha_de_entrega" << endl; // Escribir encabezado
     for (int i = 0; i < vehiculoCount; i++) {
         vehiculosFile << vehiculos[i].modelo << "," << vehiculos[i].marca << "," << vehiculos[i].placa << ","
                       << vehiculos[i].color << "," << vehiculos[i].year << "," << vehiculos[i].kilometraje << ","
-                      << (vehiculos[i].rentado ? "true" : "false") << "," << vehiculos[i].precio_renta << "," << vehiculos[i].ced_cliente << ","
-                      << vehiculos[i].fecha_de_entrega << endl;
+                      << (vehiculos[i].rentado ? "true" : "false") << "," << vehiculos[i].precio_renta << ","
+                      << vehiculos[i].ced_cliente << "," << vehiculos[i].fecha_de_entrega << endl;
     }
     vehiculosFile.close();
 
+    // Guardar Clientes
     ofstream clientesFile(CLIENTES_FILE);
+    clientesFile << "cedula,nombre,apellido,email,cantidad_vehiculos_rentados,direccion,activo" << endl; // Escribir encabezado
     for (int i = 0; i < clienteCount; i++) {
         clientesFile << clientes[i].cedula << "," << clientes[i].nombre << "," << clientes[i].apellido << ","
                      << clientes[i].email << "," << clientes[i].cantidad_vehiculos_rentados << ","
@@ -202,7 +206,9 @@ void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[],
     }
     clientesFile.close();
 
+    // Guardar Repuestos
     ofstream repuestosFile(REPUESTOS_FILE);
+    repuestosFile << "modelo,marca,nombre,modelo_carro,anio_carro,precio,existencias" << endl; // Escribir encabezado
     for (int i = 0; i < repuestoCount; i++) {
         repuestosFile << repuestos[i].modelo << "," << repuestos[i].marca << "," << repuestos[i].nombre << ","
                       << repuestos[i].modelo_carro << "," << repuestos[i].anio_carro << ","
@@ -210,6 +216,71 @@ void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[],
     }
     repuestosFile.close();
 }
+
+
+void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount) {
+    string cedulaCliente;
+    cout << "Ingrese la cedula del cliente: ";
+    cin >> cedulaCliente;
+
+    // Buscar cliente
+    int clienteIndex = -1;
+    for (int i = 0; i < clienteCount; i++) {
+        if (clientes[i].cedula == cedulaCliente) {
+            clienteIndex = i;
+            break;
+        }
+    }
+
+    if (clienteIndex == -1) {
+        cout << "Cliente no encontrado." << endl;
+        return;
+    }
+
+    // Verificar si el cliente está activo
+    if (!clientes[clienteIndex].activo) {
+        cout << "El cliente no esta activo, no se le puede asignar o quitar vehiculos." << endl;
+        return;
+    }
+
+    // Mostrar vehículos disponibles y elegir uno
+    cout << "Seleccione el vehiculo a asignar o quitar (0 a " << vehiculoCount - 1 << "): ";
+    int vehiculoIndex;
+    cin >> vehiculoIndex;
+
+    if (vehiculoIndex < 0 || vehiculoIndex >= vehiculoCount) {
+        cout << "Indice de vehiculo invalido." << endl;
+        return;
+    }
+
+    // Asignar o quitar el vehiculo
+    if (vehiculos[vehiculoIndex].rentado) {
+        // Quitar el vehiculo
+        cout << "Vehiculo " << vehiculos[vehiculoIndex].modelo << " ya esta rentado. Se le quitara al cliente." << endl;
+        vehiculos[vehiculoIndex].rentado = false;
+        vehiculos[vehiculoIndex].ced_cliente = "";
+        vehiculos[vehiculoIndex].fecha_de_entrega = "";
+
+        // Disminuir la cantidad de vehículos rentados del cliente
+        clientes[clienteIndex].cantidad_vehiculos_rentados--;
+    } else {
+        // Asignar el vehiculo
+        cout << "Vehiculo " << vehiculos[vehiculoIndex].modelo << " sera asignado al cliente." << endl;
+        vehiculos[vehiculoIndex].rentado = true;
+        vehiculos[vehiculoIndex].ced_cliente = clientes[clienteIndex].cedula;
+
+        // Obtener la fecha de entrega
+        time_t now = time(0);
+        char* dt = ctime(&now);
+        vehiculos[vehiculoIndex].fecha_de_entrega = string(dt).substr(0, 24); // Eliminar el salto de línea al final
+
+        // Incrementar la cantidad de vehículos rentados del cliente
+        clientes[clienteIndex].cantidad_vehiculos_rentados++;
+    }
+
+    cout << "Operacion completada." << endl;
+}
+
 
 int main() {
     Vehiculo vehiculos[MAX_VEHICULOS];
@@ -222,7 +293,7 @@ int main() {
 
     char opcion;
     do {
-        cout << "Seleccione una opcion:\n1. Consultar Vehiculo\n2. Consultar Cliente\n3. Consultar Repuesto\n4. Guardar Cambios\n5. Salir\nOpcion: ";
+        cout << "Seleccione una opcion:\n1. Consultar Vehiculo\n2. Consultar Cliente\n3. Consultar Repuesto\n4. Asignar/Quitar Vehiculo\n5. Guardar Cambios\n6. Salir\nOpcion: ";
         cin >> opcion;
 
         switch (opcion) {
@@ -236,17 +307,20 @@ int main() {
                 consultarRepuesto(repuestos, repuestoCount);
                 break;
             case '4':
+                asignarQuitarVehiculo(vehiculos, vehiculoCount, clientes, clienteCount);
+                break;
+            case '5':
                 guardarCambios(vehiculos, vehiculoCount, clientes, clienteCount, repuestos, repuestoCount);
                 cout << "Cambios guardados." << endl;
                 break;
-            case '5':
+            case '6':
                 cout << "Saliendo del programa." << endl;
                 break;
             default:
                 cout << "Opcion invalida. Intente de nuevo." << endl;
                 break;
         }
-    } while (opcion != '5');
+    } while (opcion != '6');
 
     return 0;
 }
