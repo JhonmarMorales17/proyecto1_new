@@ -1,0 +1,31 @@
+modelo,marca,nombre,modelo_carro,anio_carro,precio,existencias
+Malibu,Chevrolet,bujías,Truck,1999,$54.71,22
+Sunfire,Pontiac,filtro de aceite,Sedan,1997,$214.69,1
+Explorer Sport,Ford,filtro de aceite,Sedan,2002,$440.41,1
+B-Series,Mazda,aceite de motor,Sedan,1989,$89.60,41
+Mustang,Ford,sensor de oxígeno,Convertible,1984,$190.42,20
+F250,Ford,escobillas limpiaparabrisas,Hatchback,2008,$134.72,36
+Monterey,Mercury,amortiguadores,Sedan,2007,$73.00,43
+760,BMW,embrague,Convertible,2004,$81.04,22
+Legacy,Subaru,neumáticos,SUV,2007,$185.51,31
+Ram 50,Dodge,aceite de motor,Sedan,1993,$153.16,20
+SJ 410,Suzuki,embrague,Hatchback,1986,$402.95,18
+Wrangler,Jeep,filtro de aceite,Truck,2000,$83.78,7
+Express 3500,Chevrolet,sensor de oxígeno,Convertible,2009,$489.63,28
+Mighty Max,Mitsubishi,amortiguadores,Truck,1994,$405.76,29
+Mustang,Ford,aceite de motor,Truck,1998,$424.57,45
+SLS AMG,Mercedes-Benz,filtro de aire,Sedan,2011,$153.16,38
+Forenza,Suzuki,neumáticos,Hatchback,2008,$334.49,42
+F250,Ford,alternador,Sedan,2001,$255.14,5
+A8,Audi,bujías,Sedan,2010,$377.47,11
+V70,Volvo,bujías,Convertible,1998,$338.00,46
+Dakota Club,Dodge,correas de distribución,SUV,1999,$41.29,19
+968,Porsche,sensor de oxígeno,Sedan,1995,$181.39,6
+Grand Am,Pontiac,embrague,Truck,2004,$440.44,6
+Mustang,Ford,embrague,Sedan,1970,$239.98,42
+Land Cruiser,Toyota,sensor de oxígeno,Convertible,2007,$111.84,36
+Aspen,Dodge,amortiguadores,Convertible,1976,$202.78,18
+Justy,Subaru,radiador,Sedan,1988,$236.61,47
+Vibe,Pontiac,neumáticos,Truck,2006,$56.53,35
+Prelude,Honda,aceite de motor,Sedan,2000,$429.62,10
+CLK-Class,Mercedes-Benz,embrague,Truck,2001,$160.57,8
