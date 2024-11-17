@@ -1,6 +1,6 @@
 cedula,nombre,apellido,email,cantidad_vehiculos_rentados,direccion,activo
-34013825,Annelise,Moscon,amoscon0@cornell.edu,0,8916 Rowland Trail,true
-25977520,Shem,Kippins,skippins1@oaic.gov.au,0,3 Bunting Plaza,false
+34013825,Annelise,Moscon,amoscon0@cornell.edu,2,8916 Rowland Trail,true
+25977520,Shem,Kippins,skippins1@oaic.gov.au,0,3 Bunting Plaza,true
 14860797,Lamont,Frany,lfrany2@ameblo.jp,0,15449 Rusk Drive,false
 31104194,Delia,Cassella,dcassella3@newyorker.com,0,3 Buell Road,false
 14716027,Wileen,Storcke,wstorcke4@auda.org.au,0,526 Talmadge Court,true
