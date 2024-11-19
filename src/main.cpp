@@ -14,7 +14,8 @@ const int MAX_VEHICULOS = 100;
 const int MAX_CLIENTES = 100;
 const int MAX_REPUESTOS = 100;
 
-struct Vehiculo {
+struct Vehiculo
+{
     string modelo;
     string marca;
     string placa;
@@ -27,7 +28,8 @@ struct Vehiculo {
     string fecha_de_entrega;
 };
 
-struct Cliente {
+struct Cliente
+{
     string cedula;
     string nombre;
     string apellido;
@@ -37,7 +39,8 @@ struct Cliente {
     bool activo;
 };
 
-struct Repuesto {
+struct Repuesto
+{
     string modelo;
     string marca;
     string nombre;
@@ -47,13 +50,15 @@ struct Repuesto {
     int existencias;
 };
 
-int cargarVehiculos(Vehiculo vehiculos[]) {
+int cargarVehiculos(Vehiculo vehiculos[])
+{
     ifstream file(VEHICULOS_FILE);
     string line;
     getline(file, line); // Saltar la primera línea
 
     int count = 0;
-    while (getline(file, line) && count < MAX_VEHICULOS) {
+    while (getline(file, line) && count < MAX_VEHICULOS)
+    {
         stringstream ss(line);
         Vehiculo v;
         string rentado;
@@ -79,13 +84,15 @@ int cargarVehiculos(Vehiculo vehiculos[]) {
     return count;
 }
 
-int cargarClientes(Cliente clientes[]) {
+int cargarClientes(Cliente clientes[])
+{
     ifstream file(CLIENTES_FILE);
     string line;
     getline(file, line); // Saltar la primera línea
 
     int count = 0;
-    while (getline(file, line) && count < MAX_CLIENTES) {
+    while (getline(file, line) && count < MAX_CLIENTES)
+    {
         stringstream ss(line);
         Cliente c;
 
@@ -106,13 +113,15 @@ int cargarClientes(Cliente clientes[]) {
     return count;
 }
 
-int cargarRepuestos(Repuesto repuestos[]) {
+int cargarRepuestos(Repuesto repuestos[])
+{
     ifstream file(REPUESTOS_FILE);
     string line;
     getline(file, line); // Saltar la primera línea
 
     int count = 0;
-    while (getline(file, line) && count < MAX_REPUESTOS) {
+    while (getline(file, line) && count < MAX_REPUESTOS)
+    {
         stringstream ss(line);
         Repuesto r;
 
@@ -132,63 +141,80 @@ int cargarRepuestos(Repuesto repuestos[]) {
     return count;
 }
 
-void mostrarVehiculo(const Vehiculo& v) {
+void mostrarVehiculo(const Vehiculo &v)
+{
     cout << "Modelo: " << v.modelo << ", Marca: " << v.marca << ", Placa: " << v.placa
          << ", Color: " << v.color << ", Año: " << v.year << ", Kilometraje: " << v.kilometraje
          << ", Rentado: " << (v.rentado ? "Si" : "No") << ", Precio Renta: $" << v.precio_renta << ", Cedula Cliente: " << v.ced_cliente
          << ", Fecha de Entrega: " << v.fecha_de_entrega << endl;
 }
 
-void mostrarCliente(const Cliente& c) {
+void mostrarCliente(const Cliente &c)
+{
     cout << "Cedula: " << c.cedula << ", Nombre: " << c.nombre << ", Apellido: " << c.apellido
          << ", Email: " << c.email << ", Cantidad Vehiculos Rentados: " << c.cantidad_vehiculos_rentados
          << ", Direccion: " << c.direccion << ", Activo: " << (c.activo ? "Si" : "No") << endl;
 }
 
-void mostrarRepuesto(const Repuesto& r) {
+void mostrarRepuesto(const Repuesto &r)
+{
     cout << "Modelo: " << r.modelo << ", Marca: " << r.marca << ", Nombre: " << r.nombre
          << ", Modelo Carro: " << r.modelo_carro << ", Año Carro: " << r.anio_carro
          << ", Precio: $" << r.precio << ", Existencias: " << r.existencias << endl;
 }
 
-void consultarVehiculo(Vehiculo vehiculos[], int count) {
+void consultarVehiculo(Vehiculo vehiculos[], int count)
+{
     int index;
     cout << "Ingrese el indice del vehiculo a consultar (0 a " << count - 1 << "): ";
     cin >> index;
-    if (index >= 0 && index < count) {
+    if (index >= 0 && index < count)
+    {
         mostrarVehiculo(vehiculos[index]);
-    } else {
+    }
+    else
+    {
         cout << "Indice invalido." << endl;
     }
 }
 
-void consultarCliente(Cliente clientes[], int count) {
+void consultarCliente(Cliente clientes[], int count)
+{
     int index;
     cout << "Ingrese el indice del cliente a consultar (0 a " << count - 1 << "): ";
     cin >> index;
-    if (index >= 0 && index < count) {
+    if (index >= 0 && index < count)
+    {
         mostrarCliente(clientes[index]);
-    } else {
+    }
+    else
+    {
         cout << "Indice invalido." << endl;
     }
 }
 
-void consultarRepuesto(Repuesto repuestos[], int count) {
+void consultarRepuesto(Repuesto repuestos[], int count)
+{
     int index;
     cout << "Ingrese el indice del repuesto a consultar (0 a " << count - 1 << "): ";
     cin >> index;
-    if (index >= 0 && index < count) {
+    if (index >= 0 && index < count)
+    {
         mostrarRepuesto(repuestos[index]);
-    } else {
+    }
+    else
+    {
         cout << "Indice invalido." << endl;
     }
 }
 
-void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount, Repuesto repuestos[], int repuestoCount) {
+void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount, Repuesto repuestos[], int repuestoCount)
+{
     // Guardar Vehiculos
     ofstream vehiculosFile(VEHICULOS_FILE);
     vehiculosFile << "modelo,marca,placa,color,year,kilometraje,rentado,precio_renta,ced_cliente,fecha_de_entrega" << endl; // Escribir encabezado
-    for (int i = 0; i < vehiculoCount; i++) {
+    for (int i = 0; i < vehiculoCount; i++)
+    {
         vehiculosFile << vehiculos[i].modelo << "," << vehiculos[i].marca << "," << vehiculos[i].placa << ","
                       << vehiculos[i].color << "," << vehiculos[i].year << "," << vehiculos[i].kilometraje << ","
                       << (vehiculos[i].rentado ? "true" : "false") << "," << vehiculos[i].precio_renta << ","
@@ -199,7 +225,8 @@ void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[],
     // Guardar Clientes
     ofstream clientesFile(CLIENTES_FILE);
     clientesFile << "cedula,nombre,apellido,email,cantidad_vehiculos_rentados,direccion,activo" << endl; // Escribir encabezado
-    for (int i = 0; i < clienteCount; i++) {
+    for (int i = 0; i < clienteCount; i++)
+    {
         clientesFile << clientes[i].cedula << "," << clientes[i].nombre << "," << clientes[i].apellido << ","
                      << clientes[i].email << "," << clientes[i].cantidad_vehiculos_rentados << ","
                      << clientes[i].direccion << "," << (clientes[i].activo ? "true" : "false") << endl;
@@ -209,7 +236,8 @@ void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[],
     // Guardar Repuestos
     ofstream repuestosFile(REPUESTOS_FILE);
     repuestosFile << "modelo,marca,nombre,modelo_carro,anio_carro,precio,existencias" << endl; // Escribir encabezado
-    for (int i = 0; i < repuestoCount; i++) {
+    for (int i = 0; i < repuestoCount; i++)
+    {
         repuestosFile << repuestos[i].modelo << "," << repuestos[i].marca << "," << repuestos[i].nombre << ","
                       << repuestos[i].modelo_carro << "," << repuestos[i].anio_carro << ","
                       << repuestos[i].precio << "," << repuestos[i].existencias << endl;
@@ -217,28 +245,32 @@ void guardarCambios(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[],
     repuestosFile.close();
 }
 
-
-void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount) {
+void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clientes[], int clienteCount)
+{
     string cedulaCliente;
     cout << "Ingrese la cedula del cliente: ";
     cin >> cedulaCliente;
 
     // Buscar cliente
     int clienteIndex = -1;
-    for (int i = 0; i < clienteCount; i++) {
-        if (clientes[i].cedula == cedulaCliente) {
+    for (int i = 0; i < clienteCount; i++)
+    {
+        if (clientes[i].cedula == cedulaCliente)
+        {
             clienteIndex = i;
             break;
         }
     }
 
-    if (clienteIndex == -1) {
+    if (clienteIndex == -1)
+    {
         cout << "Cliente no encontrado." << endl;
         return;
     }
 
     // Verificar si el cliente está activo
-    if (!clientes[clienteIndex].activo) {
+    if (!clientes[clienteIndex].activo)
+    {
         cout << "El cliente no esta activo, no se le puede asignar o quitar vehiculos." << endl;
         return;
     }
@@ -248,13 +280,15 @@ void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clie
     int vehiculoIndex;
     cin >> vehiculoIndex;
 
-    if (vehiculoIndex < 0 || vehiculoIndex >= vehiculoCount) {
+    if (vehiculoIndex < 0 || vehiculoIndex >= vehiculoCount)
+    {
         cout << "Indice de vehiculo invalido." << endl;
         return;
     }
 
     // Asignar o quitar el vehiculo
-    if (vehiculos[vehiculoIndex].rentado) {
+    if (vehiculos[vehiculoIndex].rentado)
+    {
         // Quitar el vehiculo
         cout << "Vehiculo " << vehiculos[vehiculoIndex].modelo << " ya esta rentado. Se le quitara al cliente." << endl;
         vehiculos[vehiculoIndex].rentado = false;
@@ -263,7 +297,9 @@ void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clie
 
         // Disminuir la cantidad de vehículos rentados del cliente
         clientes[clienteIndex].cantidad_vehiculos_rentados--;
-    } else {
+    }
+    else
+    {
         // Asignar el vehiculo
         cout << "Vehiculo " << vehiculos[vehiculoIndex].modelo << " sera asignado al cliente." << endl;
         vehiculos[vehiculoIndex].rentado = true;
@@ -271,7 +307,7 @@ void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clie
 
         // Obtener la fecha de entrega
         time_t now = time(0);
-        char* dt = ctime(&now);
+        char *dt = ctime(&now);
         vehiculos[vehiculoIndex].fecha_de_entrega = string(dt).substr(0, 24); // Eliminar el salto de línea al final
 
         // Incrementar la cantidad de vehículos rentados del cliente
@@ -281,8 +317,74 @@ void asignarQuitarVehiculo(Vehiculo vehiculos[], int vehiculoCount, Cliente clie
     cout << "Operacion completada." << endl;
 }
 
+void venderRepuesto(Repuesto repuestos[], int repuestoCount, Cliente clientes[], int clienteCount)
+{
+    string cedulaCliente;
+    cout << "Ingrese la cedula del cliente: ";
+    cin >> cedulaCliente;
 
-int main() {
+    // Buscar cliente
+    int clienteIndex = -1;
+    for (int i = 0; i < clienteCount; i++)
+    {
+        if (clientes[i].cedula == cedulaCliente)
+        {
+            clienteIndex = i;
+            break;
+        }
+    }
+
+    if (clienteIndex == -1)
+    {
+        cout << "Cliente no encontrado. Volviendo al menú principal.\n";
+        return;
+    }
+
+    // Verificar si el cliente está activo
+    if (!clientes[clienteIndex].activo)
+    {
+        cout << "El cliente no está activo, no se le pueden vender repuestos. Volviendo al menú principal.\n";
+        return;
+    }
+
+    // Solicitar índice del repuesto
+    cout << "Ingrese el índice del repuesto a vender (0 a " << repuestoCount - 1 << "): ";
+    int repuestoIndex;
+    cin >> repuestoIndex;
+
+    if (repuestoIndex < 0 || repuestoIndex >= repuestoCount)
+    {
+        cout << "Índice de repuesto inválido. Volviendo al menú principal.\n";
+        return;
+    }
+
+    // Verificar existencias del repuesto
+    if (repuestos[repuestoIndex].existencias <= 0)
+    {
+        cout << "El repuesto \"" << repuestos[repuestoIndex].nombre << "\" no tiene existencias disponibles. Volviendo al menú principal.\n";
+        return;
+    }
+
+    // Confirmar la venta
+    char confirmacion;
+    cout << "¿Confirma la venta del repuesto \"" << repuestos[repuestoIndex].nombre
+         << "\" al cliente \"" << clientes[clienteIndex].nombre << "\"? (s/n): ";
+    cin >> confirmacion;
+
+    if (confirmacion == 's' || confirmacion == 'S')
+    {
+        // Reducir existencias en memoria
+        repuestos[repuestoIndex].existencias--;
+        cout << "Venta realizada con éxito. Existencias restantes del repuesto: " << repuestos[repuestoIndex].existencias << "\n";
+    }
+    else
+    {
+        cout << "Venta cancelada. Volviendo al menú principal.\n";
+    }
+}
+
+int main()
+{
     Vehiculo vehiculos[MAX_VEHICULOS];
     Cliente clientes[MAX_CLIENTES];
     Repuesto repuestos[MAX_REPUESTOS];
@@ -292,35 +394,40 @@ int main() {
     int repuestoCount = cargarRepuestos(repuestos);
 
     char opcion;
-    do {
-        cout << "Seleccione una opcion:\n1. Consultar Vehiculo\n2. Consultar Cliente\n3. Consultar Repuesto\n4. Asignar/Quitar Vehiculo\n5. Guardar Cambios\n6. Salir\nOpcion: ";
+    do
+    {
+        cout << "Seleccione una opcion:\n1. Consultar Vehiculo\n2. Consultar Cliente\n3. Consultar Repuesto\n4. Asignar/Quitar Vehiculo\n5. Guardar Cambios\n6. Vender Repuesto\n7. Salir\nOpcion: ";
         cin >> opcion;
 
-        switch (opcion) {
-            case '1':
-                consultarVehiculo(vehiculos, vehiculoCount);
-                break;
-            case '2':
-                consultarCliente(clientes, clienteCount);
-                break;
-            case '3':
-                consultarRepuesto(repuestos, repuestoCount);
-                break;
-            case '4':
-                asignarQuitarVehiculo(vehiculos, vehiculoCount, clientes, clienteCount);
-                break;
-            case '5':
-                guardarCambios(vehiculos, vehiculoCount, clientes, clienteCount, repuestos, repuestoCount);
-                cout << "Cambios guardados." << endl;
-                break;
-            case '6':
-                cout << "Saliendo del programa." << endl;
-                break;
-            default:
-                cout << "Opcion invalida. Intente de nuevo." << endl;
-                break;
+        switch (opcion)
+        {
+        case '1':
+            consultarVehiculo(vehiculos, vehiculoCount);
+            break;
+        case '2':
+            consultarCliente(clientes, clienteCount);
+            break;
+        case '3':
+            consultarRepuesto(repuestos, repuestoCount);
+            break;
+        case '4':
+            asignarQuitarVehiculo(vehiculos, vehiculoCount, clientes, clienteCount);
+            break;
+        case '5':
+            guardarCambios(vehiculos, vehiculoCount, clientes, clienteCount, repuestos, repuestoCount);
+            cout << "Cambios guardados." << endl;
+            break;
+        case '6':
+            venderRepuesto(repuestos, repuestoCount, clientes, clienteCount);
+            break;
+        case '7':
+            cout << "Saliendo del programa." << endl;
+            break;
+        default:
+            cout << "Opcion invalida. Intente de nuevo." << endl;
+            break;
         }
-    } while (opcion != '6');
+    } while (opcion != '7');
 
     return 0;
 }
